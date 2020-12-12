@@ -81,11 +81,14 @@ $(document).ready(function () {
 
     
 
+    /////////////////////////
+    ///// MILLESTONE 3 //////
+    /////////////////////////
+
     const select = $("#type");
     select.append('<option value="animals">Animals</option>');
     select.append('<option value="vegetables">Vegetables</option>');
     select.append('<option value="users">Users</option>');
-    // select.append('<option value="all">All</option>')
 
     const elSelect = document.getElementById("type");
     elSelect.addEventListener('change', event  => {
@@ -96,15 +99,5 @@ $(document).ready(function () {
         container.innerHTML = '';
         printIcons(container, arrayFilter);
         console.log(arrayFilter);
-     
-   
     });
-
-   
-
-
-
-
-
-
 });
