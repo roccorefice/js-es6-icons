@@ -14,70 +14,97 @@ $(document).ready(function () {
     }
 
     const Icone = [
-        new icone ("cat", "fas", "fa-cat", "animals"),
-        new icone ("dog", "fas", "fa-dog", "animals"),
-        new icone ("crow", "fas", "fa-crow", "animals"),
-        new icone ("horse", "fas", "fa-horse", "animals"),
-        new icone ("fish", "fas", "fa-fish", "animals"),
-        new icone ("hippo", "fas", "fa-hippo", "animals"),
-        new icone ("carrot", "fas", "fa-carrot", "vegetables"),
-        new icone ("apple", "fas", "fa-apple-alt", "vegetables"),
-        new icone ("lemon", "fas", "fa-lemon", "vegetables"),
-        new icone ("seedling", "fas", "fa-seedling", "vegetables"),
-        new icone ("astronaut", "fas", "fa-user-astronaut", "users"),
-        new icone ("swimmer", "fas", "fa-swimmer", "users"),
-        new icone ("nurse", "fas", "fa-user-nurse", "users"),
-        new icone ("ninja", "fas", "fa-user-ninja", "users"),
+        new icone ("Cat", "fas", "fa-cat", "animals"),
+        new icone ("Dog", "fas", "fa-dog", "animals"),
+        new icone ("Crow", "fas", "fa-crow", "animals"),
+        new icone ("Horse", "fas", "fa-horse", "animals"),
+        new icone ("Fish", "fas", "fa-fish", "animals"),
+        new icone ("Hippo", "fas", "fa-hippo", "animals"),
+        new icone ("Carrot", "fas", "fa-carrot", "vegetables"),
+        new icone ("Apple", "fas", "fa-apple-alt", "vegetables"),
+        new icone ("Lemon", "fas", "fa-lemon", "vegetables"),
+        new icone ("Seedling", "fas", "fa-seedling", "vegetables"),
+        new icone ("Astronaut", "fas", "fa-user-astronaut", "users"),
+        new icone ("Swimmer", "fas", "fa-swimmer", "users"),
+        new icone ("Nurse", "fas", "fa-user-nurse", "users"),
+        new icone ("Ninja", "fas", "fa-user-ninja", "users"),
     ];
 
     // Selezioniamo il container icons
     const container = document.getElementById('icons');
 
-    //inseriamo le icone nel container (possiamo creare una funzione tipo print() per inserire gli elementi e richiamarla qui)
-    Icone.forEach(element => {
-        const markup = `
-        <div>
-            <i class="fas ${element.type}" style="color:blue"></i>
-            <div class="title">${element.name}</div>
-        </div>
-        `;
-        container.innerHTML += markup;
-        // console.log(markup);
-        // console.log(container);
-    });
-  
-    /* ---- FUNCTIONS ----*/
-    // Creiamo una funzione per iterare nell'array e che appenda al container le icone.
-    // tip: possiamo usare un ciclo foreach qui e destrutturare gli le proprieta degli elementi di un array
-    // tip: il template literal ci puo aiutare con il markup
-
+    /**
+     * ## dato un array di icone stampa a schermo le icone
+     * @param {element} container 
+     * @param {array} arrayIcons 
+     */
+    function printIcons(container, arrayIcons) {
+        arrayIcons.forEach(icon =>{
+            const {name, type, family, color} = icon;
+            const markup = `
+            <div>
+                <i class="fas ${type}" style="color:${color}"></i>
+                <div class="title">${name}</div>
+            </div>
+            `;
+            container.insertAdjacentHTML('beforeend', markup);
+            
+        });
+    }
 
 
     /////////////////////////
     ///// MILLESTONE 2 //////
     /////////////////////////
 
-    // Qui le icone che abbiamo definito nella milestone 1
-
-    // definiamo dei colori per le icone (blue, orange, purple)
-
+    // definiamo dei colori per le icone
+    const blue = "#0084ff";
+    const orange = "#ffa500";
+    const red = "#8b0000";
 
     //aggiungiamo dei colori usando una funzione
+    const newIcone = Icone.map (element => {
+        if (element.family === "animals"){
+            var color = blue;
+        } else if (element.family === "vegetables"){
+            var color = orange;
+        } else {
+            var color = red;
+        }
+        let newObj = {...element, color: color};
+
+        return newObj
+    });
+    console.log(newIcone);
+
+    printIcons (container, newIcone);
+
+    
+
+    const select = $("#type");
+    select.append('<option value="animals">Animals</option>');
+    select.append('<option value="vegetables">Vegetables</option>');
+    select.append('<option value="users">Users</option>');
+    // select.append('<option value="all">All</option>')
+
+    const elSelect = document.getElementById("type");
+    elSelect.addEventListener('change', event  => {
+
+        let sceltaUtente = $('#type option:selected').val();
+        const arrayFilter = newIcone.filter(icona => icona.family == sceltaUtente);
+
+        container.innerHTML = '';
+        printIcons(container, arrayFilter);
+        console.log(arrayFilter);
+     
+   
+    });
+
+   
 
 
-    //inseriamo le icone colorate nel container
 
 
 
 
-    /* ---- FUNCTIONS ----*/
-    //1. Funzione milestone 1
-
-
-    //2. funzione per assegnare un colore ad un icona
-    // tip: possiamo invocare qui dentro un'altra funzione (2) oppure usare map 
-
-
-    //3. funzione per ottenere da un array
-    // tip: possiamo usarla nella funzione precedente oppure usare map senza creare questa funzione.
 });
